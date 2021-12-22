@@ -7,7 +7,7 @@ export class NewsItem extends Component {
         let {title,description,imageurl,newsUrl}=this.props
         return (
             <div className='my-3'>
-                <div className="card" style={{width: "18rem"}}>
+                <div className="card" >
                     <img src={!imageurl?"https://images.livemint.com/img/2021/12/20/600x338/Tedros_1640015135780_1640015136051.JPG":imageurl} className="card-img-top" alt="..."/>
                     <div className="card-body">
                         <h5 className="card-title">{title}</h5>
