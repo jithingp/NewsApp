@@ -32,7 +32,7 @@ export class News extends Component {
         document.title=`NewsHerald-${this.capitalizeFirstLetter(this.props.category)}`
     }
     async updateNews(){
-      const url=`https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=2a32e4d1fc7b4347848d8ada3513ca4a&page=${this.state.page}&pageSize=${this.props.pageSize}`
+      const url=`https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`
       this.setState({loading: true})
       let data=await fetch(url)
       let parsedData=await data.json()
@@ -43,17 +43,11 @@ export class News extends Component {
     async componentDidMount(){
       this.updateNews()
     }
-    handleprevclick=async ()=>{
-       this.setState({page:this.state.page-1})
-      this.updateNews()
-    }
-    handlenextclick=async ()=>{
-      this.setState({page:this.state.page+1})
-      this.updateNews()
-    }
+   
     fetchMoreData = async() => {
+      
+      const url=`https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page+1}&pageSize=${this.props.pageSize}`
       this.setState({page: this.state.page+1})
-      const url=`https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=2a32e4d1fc7b4347848d8ada3513ca4a&page=${this.state.page}&pageSize=${this.props.pageSize}`
       let data=await fetch(url)
       let parsedData=await data.json()
       this.setState({articles:this.state.articles.concat(parsedData.articles),
@@ -63,7 +57,7 @@ export class News extends Component {
     render() {
         return (
             <>
-              <h1 className="text-center" style={{margin:'30px 0px'}}>NewsHerald-Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
+              <h1 className="text-center" style={{margin:'30px 0px',marginTop:'90px'}}>NewsHerald-Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
               {this.state.loading && <Spinner/>}
               <InfiniteScroll
                 dataLength={this.state.articles.length}
